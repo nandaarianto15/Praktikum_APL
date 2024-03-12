@@ -29,7 +29,7 @@ int cariNamaBarang(const string namaBarang, const tableBarang namaBarangs[], int
             return i;
         }
     }
-    return 1;
+    return -1;
 }
 
 // fungsi utama
@@ -49,6 +49,7 @@ int main() {
 
         if (nama == "nanda" && nim == "135" || nama == "Nanda" && nim == "135") {
             cout << "Login berhasil!\n";
+            cout << "\nSELAMAT DATANG DI INVENTORY SEKOLAH\n";
             break;
         } else {
             cout << "Login gagal. Silakan coba lagi.";
@@ -69,7 +70,7 @@ int main() {
         switch (pilihan) {
             case 1: // Tampilkan data barang
                 if (totalBarang > 0) {
-                    cout << "\n ===== Data Barang di Inventory Sekolah ===== \n";
+                    cout << "\n===== DATA BARANG DI INVENTORI SEKOLAH ===== \n";
                     for (int i = 0; i < totalBarang; i++) {
                         cout << "Nama Barang : " << barang[i].namaBarang << " | Kondisi Barang : " << barang[i].kondisi << " | Jumlah Barang : " << barang[i].jumlah << endl;
                     }
@@ -91,8 +92,11 @@ int main() {
                     cout << "Penyimpanan penuh. Tidak dapat menambahkan data lagi.\n";
                 }
                 break;
+
+            // Penggunaan kurung kuruawal pada case 3 dan 4 untuk scope local untuk variabel "index"
             case 3: // Ubah data barang (berdasarkan nama barang)
-                cout << "Masukkan nama barang yang akan di ubah : ";
+            {
+                cout << "Masukkan nama barang yang akan di ubah datanya : ";
                 cin >> update;
 
                 int index = cariNamaBarang(update, barang, totalBarang);
@@ -107,7 +111,33 @@ int main() {
                 } else {
                     cout << "Nama barang tidak ditemukan\n";
                 }
+            }
             break;
+            case 4: // Hapus data barang (berdasarkan nama barang)
+            {
+                cout << "Masukkan nama barang yang akan di hapus datanya : ";
+                cin >> update;
+
+                int index = cariNamaBarang(update, barang, totalBarang);
+                 if (index != -1) {
+                        // Geser elemen-elemen array untuk menutup celah yang dihapus
+                        for (int i = index; i < totalBarang - 1; ++i) {
+                            barang[i] = barang[i + 1];
+                        }
+                        totalBarang--;
+                        cout << "Data barang berhasil dihapus.\n";
+                    } else {
+                        cout << "Nama barang tidak ditemukan.\n";
+                    }
+            }
+            break;
+            case 5: // Keluar program
+                cout << "Terima Kasih.\n";
+                return 0;
+
+            default:
+                cout << "Pilihan tidak valid.\n";
+                break;
         }
     }
 }
