@@ -1,4 +1,5 @@
 #include <iostream>
+#include <limits> 
 using namespace std;
 
 // struct untuk informasi barang
@@ -52,6 +53,14 @@ int menu() {
     cout << "5. Keluar\n";
     cin >> pilihan;
     
+    // validasi input
+    while (cin.fail() || pilihan < 1 || pilihan > 5) {
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cout << "Input tidak valid. Masukkan angka antara 1 dan 5: ";
+        cin >> pilihan;
+    }
+
     // deklarasi dari tiap fungsi CRUD dan penggunaan rekursif
     switch (pilihan) {
         case 1:
@@ -133,11 +142,20 @@ void lihatBarang() {
 void tambahBarang() {
     if (totalBarang < maxArray) {
         cout << "Masukkan nama barang : ";
-        cin >> daftarInventaris[totalBarang].barang.namaBarang;
+        cin.ignore();
+        getline(cin, daftarInventaris[totalBarang].barang.namaBarang);
+        
         cout << "Masukkan jumlah barang : ";
-        cin >> daftarInventaris[totalBarang].barang.jumlah;
+        while (!(cin >> daftarInventaris[totalBarang].barang.jumlah)) {
+            cout << "Input tidak valid. Masukkan jumlah barang dalam bentuk angka : ";
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        }
+        
         cout << "Kondisi barang : ";
-        cin >> daftarInventaris[totalBarang].barang.kondisi;
+        cin.ignore();
+        getline(cin, daftarInventaris[totalBarang].barang.kondisi);
+
         totalBarang++;
         cout << "Data barang berhasil ditambahkan.\n";
     } else {
@@ -149,16 +167,24 @@ void tambahBarang() {
 void updateBarang() {
     string update;
     cout << "Masukkan nama barang yang akan diubah datanya : ";
-    cin >> update;
+    cin.ignore();
+    getline(cin, update);
 
     int index = cariIndexBarang(update);
     if (index != -1) {
         cout << "Masukkan nama barang yang baru : ";
-        cin >> daftarInventaris[index].barang.namaBarang;
+        getline(cin, daftarInventaris[index].barang.namaBarang);
+        
         cout << "Masukkan jumlah barang yang baru : ";
-        cin >> daftarInventaris[index].barang.jumlah;
+        while (!(cin >> daftarInventaris[index].barang.jumlah)) {
+            cout << "Input tidak valid. Masukkan jumlah barang dalam bentuk angka : ";
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        }
+        
         cout << "Kondisi barang yang baru : ";
-        cin >> daftarInventaris[index].barang.kondisi;
+        cin.ignore();
+        getline(cin, daftarInventaris[index].barang.kondisi);
         cout << "Data barang berhasil diupdate.\n";
     } else {
         cout << "Nama barang tidak ditemukan.\n";
@@ -169,7 +195,8 @@ void updateBarang() {
 void hapusBarang() {
     string update;
     cout << "Masukkan nama barang yang akan dihapus datanya : ";
-    cin >> update;
+    cin.ignore();
+    getline(cin, update);
 
     int index = cariIndexBarang(update);
     if (index != -1) {
