@@ -35,7 +35,7 @@ int login(Inventaris** daftarInventaris);
 int menu();
 void lihatBarang(Inventaris** daftarInventaris, int totalBarang);
 void tambahBarang(Inventaris** daftarInventaris, int* totalBarang);
-void updateBarang(Inventaris** daftarInventaris, int totalBarang);
+void updateBarang(Inventaris** daftarInventaris, int* totalBarang);
 void hapusBarang(Inventaris** daftarInventaris, int* totalBarang);
 
 // Fungsi main
@@ -63,7 +63,7 @@ int menu() {
     }
 
     // Deklarasi dari tiap fungsi CRUD dan penggunaan rekursif
-    // Pada parameter fungsi tambah dan hapus, saya menggunakan Operator Address-of / operator alamat (&) 
+    // Pada parameter fungsi tambah, update dan hapus, saya menggunakan Operator Address-of / operator alamat (&) 
     switch (pilihan) {
         case 1:
             lihatBarang(daftarInventaris, totalBarang);
@@ -72,7 +72,7 @@ int menu() {
             tambahBarang(daftarInventaris, &totalBarang);
             break;
         case 3: 
-            updateBarang(daftarInventaris, totalBarang);
+            updateBarang(daftarInventaris, &totalBarang);
             break;
         case 4:
             hapusBarang(daftarInventaris, &totalBarang);
@@ -175,7 +175,7 @@ void tambahBarang(Inventaris** daftarInventaris, int* totalBarang) {
 }
 
 // Prosedur untuk mengubah data barang
-void updateBarang(Inventaris** daftarInventaris, int totalBarang) {
+void updateBarang(Inventaris** daftarInventaris, int* totalBarang) {
     string update;
     cout << "Masukkan nama barang yang akan diubah datanya : ";
     cin.ignore();
