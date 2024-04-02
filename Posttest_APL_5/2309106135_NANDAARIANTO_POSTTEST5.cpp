@@ -63,7 +63,7 @@ int menu() {
     }
 
     // Deklarasi dari tiap fungsi CRUD dan penggunaan rekursif
-    // Pada fungsi tambah dan hapus, saya menggunakan Operator Address-of / operator alamat (&)
+    // Pada parameter fungsi tambah dan hapus, saya menggunakan Operator Address-of / operator alamat (&) 
     switch (pilihan) {
         case 1:
             lihatBarang(daftarInventaris, totalBarang);
