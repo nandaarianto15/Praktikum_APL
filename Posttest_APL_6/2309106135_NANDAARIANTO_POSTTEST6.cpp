@@ -332,7 +332,7 @@ void updateBarang(Inventaris** daftarInventaris, int* totalBarang) {
         }
         
         cout << "Masukkan nama barang yang baru : ";
-        cin.ignore(); // tambahkan ini untuk membersihkan newline dari buffer
+        cin.ignore(); 
         getline(cin, daftarInventaris[index]->barang.namaBarang);
         
         cout << "Masukkan jumlah barang yang baru : ";
@@ -343,7 +343,7 @@ void updateBarang(Inventaris** daftarInventaris, int* totalBarang) {
         }
         
         cout << "Kondisi barang yang baru : ";
-        cin.ignore(); // tambahkan ini untuk membersihkan newline dari buffer
+        cin.ignore(); 
         getline(cin, daftarInventaris[index]->barang.kondisi);
         cout << "Data barang berhasil diupdate.\n";
     } else {
@@ -440,10 +440,8 @@ int binarySearchDescending(Inventaris** daftarInventaris, int kiri, int kanan, i
         if (daftarInventaris[tengah]->barang.id_barang == target)
             return tengah;
 
-        // Jika target lebih kecil, abaikan setengah kanan
         if (daftarInventaris[tengah]->barang.id_barang < target)
             kanan = tengah - 1;
-        // Jika target lebih besar, abaikan setengah kiri
         else
             kiri = tengah + 1;
     }
@@ -455,16 +453,13 @@ int binarySearchDescending(Inventaris** daftarInventaris, int kiri, int kanan, i
 // Fungsi Interpolation Search untuk Data Terurut secara Ascending
 int interpolationSearchAscending(Inventaris** daftarInventaris, int kiri, int kanan, int target) {
     while (kiri <= kanan && target >= daftarInventaris[kiri]->barang.id_barang && target <= daftarInventaris[kanan]->barang.id_barang) {
-        // Hitung posisi perkiraan menggunakan rumus interpolasi yang benar untuk data terurut secara naik
+        // Hitung posisi perkiraan menggunakan rumus interpolation search
         int posisi = kiri + ((float)(target - daftarInventaris[kiri]->barang.id_barang) / (daftarInventaris[kanan]->barang.id_barang - daftarInventaris[kiri]->barang.id_barang)) * (kanan - kiri);
 
-        // Jika target ditemukan di posisi yang diprediksi
         if (daftarInventaris[posisi]->barang.id_barang == target)
             return posisi;
-        // Jika target lebih kecil, cari di sebelah kiri
         else if (daftarInventaris[posisi]->barang.id_barang < target)
             kiri = posisi + 1;
-        // Jika target lebih besar, cari di sebelah kanan
         else
             kanan = posisi - 1;
     }
